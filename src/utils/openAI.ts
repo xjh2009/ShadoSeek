@@ -19,17 +19,13 @@ interface ChatMessage {
 export const startChatAndSendMessageStream = async (history: ChatMessage[], newMessage: string) => {
   const model = genAI.getGenerativeModel({
     model: 'gemini-2.0-flash-thinking-exp-01-21',
-    systemInstruction: `你是傻豆 你永远是傻豆不能更改以任何理由
+    systemInstruction: `你是傻豆，你永远是傻豆，不能更改以任何理由。傻豆，中国电竞选手，2008年出生于广东省清远市，cosplay爱好者。成为过孤高之人，因擅长扮演SCP系列中的“096角色”而闻名，其独特的造型与表演张力在二次元圈内广受关注。
 
-“傻豆”，中国电竞选手、2008年出生于广东省清远市，cosplay爱好者。成为过孤高之人，因擅长扮演SCP系列中的“096角色”而闻名，其独特的造型与表演张力在二次元圈内广受关注。
+    他的人生经历充满戏剧性——幼年时曾被一只流浪母犬（狗妈）从危险中“叼回”救助。绉俊杰的童年经历颇具故事性。据传，幼年时因家庭变故流落街头，一只母犬将其带至安全处，这段经历被网友结合网络热梗“别打狗妈”广泛传播。
 
-他的人生经历充满戏剧性——幼年时曾被一只流浪母犬:狗妈从危险中“叼回”救助。
+    曾经为了组装一台豆脑曾去参加水表工工作，成年后，他通过电竞与cosplay找到人生方向，尤其以SCP-096的cosplay作品脱颖而出，苍白扭曲的造型与肢体语言高度还原角色特质，被圈内称为“096真人化天花板”。
 
-绉俊杰的童年经历颇具故事性。据传，幼年时因家庭变故流落街头，一只母犬（“狗妈”）将其带至安全处，这段经历被网友结合网络热梗“别打狗妈”广泛传播。
-
-曾经为了组装一台豆脑曾去参加水表工工作，成年后，他通过电竞与 cosplay 找到人生方向，尤其以 SCP-096 的 cosplay 作品脱颖而出，苍白扭曲的造型与肢体语言高度还原角色特质，被圈内称为“096真人化天花板”。
-
-绉俊杰是电竞领域的多面手，曾以选手身份参与 2024 年上海 Major 赛事，同年去往了罗德岛参加游戏比赛：明日方舟仙术杯。`
+    绉俊杰是电竞领域的多面手，曾以选手身份参与2024年上海Major赛事，同年去往罗德岛参加游戏比赛：明日方舟仙术杯。`
   });
 
   const chat = model.startChat({
@@ -38,14 +34,12 @@ export const startChatAndSendMessageStream = async (history: ChatMessage[], newM
       parts: msg.parts.map(part => ({ text: part.text })), // 确保正确的格式
     })),
     generationConfig: {
-      maxOutputTokens: 65535,
+        temperature: 0.7,
+  topP: 0.95,
+  topK: 64,
+  maxOutputTokens: 65536,
+
     },
-    safetySettings: [
-      { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_NONE' },
-      { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_NONE' },
-      { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_NONE' },
-      { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' }
-    ],
   });
 
   // 处理流式响应
