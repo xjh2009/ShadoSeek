@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'; // 引入官方 Gemini API 库
 
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY as string; // 确保环境变量正确
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim().replace(/\/$/, '');
+const apiKey = (import.meta.env.GEMINI_API_KEY) as string; // 确保 apiKey 是字符串类型
+const apiBaseUrl = (import.meta.env.API_BASE_URL)?.trim().replace(/\/$/, '');
 
 const genAI = apiBaseUrl
   ? new GoogleGenerativeAI(apiKey, { apiEndpoint: apiBaseUrl }) // 使用 apiEndpoint 配置项
