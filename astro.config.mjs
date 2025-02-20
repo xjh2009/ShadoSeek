@@ -25,9 +25,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'inline',
       manifest: {
-        name: 'Gemini Pro Chat',
-        short_name: 'Gemini Pro',
-        description: 'Minimal web UI for Gemini Pro.',
+        name: '傻豆AI',
+        short_name: 'ShadoSeek',
+        description: '傻豆AI',
         theme_color: '#212129',
         background_color: '#ffffff',
         icons: [
