@@ -23,10 +23,7 @@ export const startChatAndSendMessageStream = async (history: ChatMessage[], newM
   const model = genAI.getGenerativeModel({ model: modelName, systemInstruction: systemInstruction });
 
   const chat = model.startChat({
-        history: history.map((msg) => ({
-  role: msg.role,
-  parts: msg.parts.map(part => ({ text: part.text })), // 将每个部分包装成对象
-}));
+        history: history,
       generationConfig: {
         temperature: 0.7,
         topP: 0.95,
