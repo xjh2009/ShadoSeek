@@ -11,10 +11,7 @@ export const startChatAndSendMessageStream = async(history: ChatMessage[], newMe
   const model = genAI.getGenerativeModel({ model: 'gemini-pro' })
 
   const chat = model.startChat({
-    history: history.map(msg => ({
-      role: msg.role,
-      parts: msg.parts.map(part => part.text).join(''), // Join parts into a single string
-    })),
+    history: history,
     generationConfig: {
       maxOutputTokens: 8000,
     },
